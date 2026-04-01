@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nouri Studio — Guest Experience Design · Asia-Pacific &amp; Europe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F4EFE7;
+  --ink:#131008;
+  --gold:#A8783A;
+  --gold-l:rgba(168,120,58,.15);
+  --border:#DDD6C8;
+  --muted:#7A6E62;
+  --C:"Cormorant Garamond",Georgia,serif;
+  --J:"Jost",sans-serif;
+  --pad:clamp(28px,6vw,80px);
+}
+html{scroll-behavior:smooth;font-size:18px}
+body{background:var(--bg);color:var(--ink);font-family:var(--J);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ── CUSTOM CURSOR ── */
+#cur-outer{
+  position:fixed;width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;
+  pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
+  transition:width .4s ease,height .4s ease,opacity .4s ease,border-color .4s;
+  opacity:.6;
+}
+#cur-inner{
+  position:fixed;width:6px;height:6px;background:var(--gold);border-radius:50%;
+  pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
+  transition:width .2s ease,height .2s ease;
+}
+#cur-outer.big{width:60px;height:60px;opacity:.3;border-color:var(--ink)}
+#cur-inner.big{width:4px;height:4px}
+@media(hover:none){#cur-outer,#cur-inner{display:none}body{cursor:auto}}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:clamp(20px,3vw,36px) var(--pad);
+  background:rgba(244,239,231,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s;
+}
+nav.scrolled{border-bottom-color:var(--border)}
+.logo{font-family:var(--C);font-size:15px;font-weight:300;letter-spacing:.4em;text-transform:uppercase;color:var(--ink);text-decoration:none}
+.logo i{color:var(--gold);font-style:italic}
+.nav-r{display:flex;gap:clamp(20px,3vw,44px);align-items:center}
+.nav-r a{font-size:11px;font-weight:300;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s}
+.nav-r a:hover{color:var(--ink)}
+.nav-cta{color:var(--gold) !important;border-bottom:1px solid rgba(168,120,58,.4);padding-bottom:1px}
+.nav-cta:hover{border-color:var(--gold) !important}
+
+/* ── HERO ── */
+#hero{
+  min-height:100svh;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:0 var(--pad) clamp(64px,10vh,120px);
+  position:relative;overflow:hidden;
+}
+.hero-tag{display:flex;align-items:center;gap:16px;margin-bottom:clamp(24px,4vh,44px)}
+.hero-tag-line{width:40px;height:1px;background:var(--gold)}
+.hero-tag-text{font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.hero-h{
+  font-family:var(--C);font-size:clamp(40px,6.5vw,88px);
+  font-weight:300;line-height:1.08;letter-spacing:-.01em;
+  max-width:clamp(320px,80vw,1060px);
+}
+.lw{display:block;overflow:hidden;padding-bottom:.12em}
+.lt{display:block;animation:up .9s cubic-bezier(.16,1,.3,1) both}
+.lt.a1{animation-delay:.05s}.lt.a2{animation-delay:.17s}
+.lt.a3{animation-delay:.29s;font-style:italic;color:var(--gold)}
+@keyframes up{from{transform:translateY(108%)}to{transform:translateY(0)}}
+.hero-sub{
+  font-family:var(--C);font-size:clamp(18px,2vw,24px);font-weight:300;
+  font-style:italic;color:var(--muted);max-width:500px;line-height:1.6;
+  margin-top:clamp(28px,4vh,48px);
+}
+.hero-ctas{
+  display:flex;align-items:center;gap:clamp(20px,3vw,40px);
+  margin-top:clamp(32px,5vh,56px);flex-wrap:wrap;
+}
+.hero-scroll{
+  position:absolute;bottom:clamp(28px,4vh,48px);right:var(--pad);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.hero-scroll-line{width:1px;height:52px;background:linear-gradient(to bottom,var(--gold),transparent);animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.3;transform:scaleY(.5)}50%{opacity:.8;transform:scaleY(1)}}
+.hero-scroll span{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);writing-mode:vertical-rl}
+
+/* ── BUTTONS ── */
+.btn{font-family:var(--J);font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:all .3s;display:inline-block}
+.btn-fill{color:var(--bg);background:var(--ink);padding:16px 36px}
+.btn-fill:hover{background:var(--gold)}
+.btn-line{color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:3px}
+.btn-line:hover{color:var(--ink);border-color:var(--ink)}
+
+/* ── RULES ── */
+.rule{height:1px;background:var(--border);margin:0 var(--pad)}
+
+/* ── SECTIONS ── */
+.s{padding:clamp(80px,13vh,140px) var(--pad)}
+
+/* eyebrow */
+.ey{font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:clamp(20px,3vh,32px)}
+
+/* section heading */
+.sh{font-family:var(--C);font-size:clamp(36px,5vw,68px);font-weight:300;line-height:1.05;color:var(--ink)}
+.sh em{font-style:italic;color:var(--gold)}
+
+/* body copy */
+.bc{font-size:16px;font-weight:300;line-height:1.85;color:var(--muted)}
+
+/* ── BELIEF ── */
+#belief{display:grid;grid-template-columns:1fr 1.5fr;gap:clamp(48px,8vw,120px);align-items:start}
+.belief-aside{font-size:11px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding-top:10px;line-height:2.4}
+.belief-aside span{display:block;color:var(--border)}
+
+/* ── POSITIONING ── */
+.pos-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:clamp(36px,5vh,56px)}
+.pos-c{background:var(--bg);padding:clamp(28px,3.5vw,48px);transition:background .3s}
+.pos-c:hover{background:#EEE8DF}
+.pos-label{font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block}
+.pos-text{font-size:15px;font-weight:300;line-height:1.85;color:var(--muted)}
+
+/* ── STATS ── */
+.s-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:clamp(36px,5vh,56px)}
+.s-cell{background:var(--bg);padding:clamp(36px,4.5vw,60px) clamp(24px,3vw,40px);text-align:center}
+.s-num{font-family:var(--C);font-size:clamp(52px,7vw,88px);font-weight:300;color:var(--gold);line-height:1;display:block;margin-bottom:12px}
+.s-text{font-size:14px;font-weight:300;line-height:1.75;color:var(--muted)}
+
+/* ── DISCIPLINES ── */
+.disc-hd{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:20px;border-bottom:1px solid var(--border);margin-bottom:0}
+.disc-hd span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.di{display:grid;grid-template-columns:56px 1fr 160px;gap:clamp(20px,3vw,44px);align-items:start;padding:clamp(28px,4vh,44px) 0;border-bottom:1px solid var(--border)}
+.di:last-of-type{border-bottom:none}
+.di:hover .di-name{color:var(--gold)}
+.di-n{font-family:var(--C);font-size:14px;font-weight:300;color:var(--border);letter-spacing:.05em;padding-top:6px;transition:color .3s}
+.di:hover .di-n{color:rgba(168,120,58,.4)}
+.di-name{font-family:var(--C);font-size:clamp(24px,3vw,42px);font-weight:300;color:var(--ink);line-height:1.05;margin-bottom:14px;transition:color .4s}
+.di-desc{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85;max-width:520px}
+.di-price{text-align:right;padding-top:6px}
+.di-price b{font-family:var(--C);font-size:clamp(20px,2vw,26px);font-weight:300;color:var(--ink);display:block;font-style:normal}
+.di-price s{font-size:11px;font-weight:300;color:var(--muted);letter-spacing:.08em;display:block;margin-top:5px;text-decoration:none}
+.retainer{margin-top:1px;background:var(--gold-l);border:1px solid rgba(168,120,58,.2);padding:clamp(22px,3vw,36px) clamp(24px,3vw,40px);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.retainer p{font-size:15px;font-weight:300;line-height:1.8;color:var(--muted);max-width:560px}
+.retainer p strong{color:var(--ink);font-weight:400}
+.retainer-p{font-family:var(--C);font-size:clamp(22px,2.2vw,30px);font-weight:300;color:var(--gold);white-space:nowrap}
+
+/* ── MANIFESTO ── */
+#manifesto{background:#0C0906;padding:clamp(100px,16vh,180px) var(--pad);position:relative}
+#manifesto::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(168,120,58,.3),transparent)}
+.m-t{font-family:var(--C);font-size:clamp(28px,5.5vw,76px);font-weight:300;line-height:1.12}
+.w{display:inline;color:rgba(244,239,231,.08);transition:color .5s}
+.w.on{color:rgba(244,239,231,.9)}.w.g{color:var(--gold) !important}
+.m-by{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(168,120,58,.4);margin-top:clamp(36px,6vh,64px)}
+
+/* ── PROCESS ── */
+#process{display:grid;grid-template-columns:280px 1fr;gap:clamp(48px,8vw,100px);align-items:start}
+.pr-step{display:grid;grid-template-columns:44px 1fr;gap:clamp(16px,2.5vw,32px);padding:clamp(24px,3.5vh,36px) 0;border-top:1px solid var(--border)}
+.pr-n{font-family:var(--C);font-size:clamp(30px,3vw,44px);font-weight:300;color:rgba(168,120,58,.15);line-height:1}
+.pr-name{font-family:var(--C);font-size:clamp(20px,2vw,26px);font-weight:300;color:var(--ink);margin-bottom:10px}
+.pr-desc{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85}
+
+/* ── OUTREACH ── */
+.out-hd{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.out-hd span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.phase{display:grid;grid-template-columns:72px 1fr;gap:clamp(20px,3vw,44px);padding:clamp(32px,5vh,56px) 0;border-bottom:1px solid var(--border)}
+.phase:last-of-type{border-bottom:none}
+.ph-num{font-family:var(--C);font-size:clamp(48px,5.5vw,72px);font-weight:300;color:rgba(168,120,58,.15);line-height:1}
+.ph-tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-weight:300}
+.ph-title{font-family:var(--C);font-size:clamp(22px,2.8vw,34px);font-weight:300;color:var(--ink);margin-bottom:14px;line-height:1.1}
+.ph-desc{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85;max-width:580px;margin-bottom:20px}
+.acts{list-style:none}
+.acts li{font-size:15px;font-weight:300;color:var(--ink);padding:10px 0;border-bottom:1px solid var(--border);display:flex;gap:16px;line-height:1.6}
+.acts li:last-child{border-bottom:none}
+.acts li::before{content:"→";color:var(--gold);flex-shrink:0}
+.email-block{border:1px solid var(--border);margin-top:clamp(44px,6vh,68px)}
+.email-hd{padding:20px clamp(24px,3vw,36px);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:rgba(168,120,58,.04)}
+.email-hd span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cpybtn{font-family:var(--J);font-size:10px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(168,120,58,.3);padding:9px 18px;background:transparent;cursor:pointer;transition:all .3s}
+.cpybtn:hover{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.email-body{padding:clamp(28px,3.5vw,44px) clamp(24px,3vw,36px);font-size:15px;font-weight:300;line-height:1.95;color:var(--ink)}
+.email-body em{color:var(--gold);font-style:normal;font-weight:400}
+.email-note{font-size:13px;color:var(--muted);margin-bottom:24px;font-style:italic;font-family:var(--C)}
+
+/* ── CONTACT ── */
+#contact{padding:clamp(100px,16vh,180px) var(--pad);background:#F0EAE0}
+.c-h{font-family:var(--C);font-size:clamp(48px,9vw,128px);font-weight:300;line-height:.9;letter-spacing:-.01em}
+.c-h em{font-style:italic;color:var(--gold)}
+.c-sub{font-family:var(--C);font-size:clamp(18px,2vw,24px);font-weight:300;font-style:italic;color:var(--muted);max-width:420px;line-height:1.6;margin-top:clamp(24px,4vh,44px)}
+.c-acts{display:flex;align-items:center;gap:36px;margin-top:clamp(36px,5vh,56px);flex-wrap:wrap}
+.c-link{font-family:var(--C);font-size:clamp(15px,1.6vw,20px);font-weight:300;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:3px;transition:color .3s,border-color .3s;letter-spacing:.03em;font-style:italic}
+.c-link:hover{color:var(--ink);border-color:var(--ink)}
+
+/* ── FOOTER ── */
+footer{padding:clamp(24px,4vh,40px) var(--pad);border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.f-logo{font-family:var(--C);font-size:13px;font-weight:300;letter-spacing:.35em;text-transform:uppercase;color:var(--ink)}
+.f-logo i{color:var(--gold);font-style:italic}
+.f-note{font-size:11px;letter-spacing:.1em;color:var(--muted);font-weight:300}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  #belief{grid-template-columns:1fr}.belief-aside{display:none}
+  #process{grid-template-columns:1fr}
+  .pos-grid{grid-template-columns:1fr}.s-grid{grid-template-columns:1fr 1fr}
+  .di{grid-template-columns:40px 1fr}.di-price{display:none}
+  footer{justify-content:center;text-align:center}
+  .retainer{flex-direction:column}
+  .phase{grid-template-columns:52px 1fr}
+}
+@media(max-width:540px){.s-grid{grid-template-columns:1fr}.nav-r a:not(.nav-cta){display:none}}
+</style>
+</head>
+<body>
+
+<div id="cur-outer"></div>
+<div id="cur-inner"></div>
+
+<nav id="nav">
+  <a href="#" class="logo">Nouri <i>Studio</i></a>
+  <div class="nav-r">
+    <a href="#disciplines">Disciplines</a>
+    <a href="#process">Process</a>
+    <a href="#contact" class="nav-cta">Begin</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag">
+    <div class="hero-tag-line"></div>
+    <div class="hero-tag-text">Where Experience Begins</div>
+  </div>
+  <h1 class="hero-h">
+    <span class="lw"><span class="lt a1">The feeling</span></span>
+    <span class="lw"><span class="lt a2">a guest carries</span></span>
+    <span class="lw"><span class="lt a3">home.</span></span>
+  </h1>
+  <p class="hero-sub">We design what luxury hotels and restaurants cannot buy — the invisible architecture of how a place makes people feel. Operating across Asia-Pacific and Europe.</p>
+  <div class="hero-ctas">
+    <a href="#contact" class="btn btn-fill">Begin a conversation</a>
+    <a href="#disciplines" class="btn btn-line">Our disciplines</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- BELIEF -->
+<section id="belief" class="s">
+  <div class="belief-aside">
+    Our belief<br>
+    <span>—</span>
+    <span>Guest Experience</span>
+    <span>Design</span>
+  </div>
+  <div>
+    <h2 class="sh">The best hotels and restaurants<br>don't just meet expectations.<br><em>They rewrite them.</em></h2>
+    <div style="margin-top:clamp(28px,4vw,48px)">
+      <p class="bc" style="margin-bottom:20px">Nouri Studio is the destination for customised experiences in hospitality. We work with luxury hotels and high-end restaurants across Asia-Pacific and Europe to design experiences that are felt before they are articulated.</p>
+      <p class="bc" style="margin-bottom:20px">We bring something most consultancies cannot: the perspective of a guest and access to wellness, F&B, and soft product brands.</p>
+      <p class="bc">We design experiences from start to finish.</p>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- POSITIONING -->
+<section class="s" style="padding-top:clamp(60px,10vh,100px)">
+  <div class="ey">Why Nouri Studio</div>
+  <div class="pos-grid">
+    <div class="pos-c">
+      <span class="pos-label">Our clients</span>
+      <p class="pos-text">Independent boutique hotels, luxury resorts, and Michelin-starred restaurants across Hong Kong, Singapore, Thailand, Bali, Japan and Europe seeking to differentiate through exceptional sensory experience.</p>
+    </div>
+    <div class="pos-c">
+      <span class="pos-label">Our edge</span>
+      <p class="pos-text">We are both consultants and curators. Through Nouri's distribution network, we don't just advise on which brands to partner — we introduce them, negotiate access, and manage the relationship.</p>
+    </div>
+    <div class="pos-c">
+      <span class="pos-label">Our perspective</span>
+      <p class="pos-text">Dual Asia-Pacific–Europe fluency. Based in Hong Kong and Germany, we understand what Asian luxury travellers expect and what European owners are trying to build. That cross-cultural lens is genuinely rare in hospitality consulting.</p>
+    </div>
+    <div class="pos-c">
+      <span class="pos-label">Our commitment</span>
+      <p class="pos-text">No more than four active projects at any time, across both regions. Full attention, no assembly line. Your property is not a case study — it is a collaboration.</p>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- STATS -->
+<section class="s" style="padding-top:clamp(60px,10vh,100px)">
+  <div class="ey">The case for experience</div>
+  <div class="s-grid">
+    <div class="s-cell"><span class="s-num">71%</span><p class="s-text">of luxury travellers say wellness offerings directly influence their hotel choice</p></div>
+    <div class="s-cell"><span class="s-num">3×</span><p class="s-text">higher guest satisfaction for properties with a coherent service identity vs ad-hoc programmes</p></div>
+    <div class="s-cell"><span class="s-num">€0</span><p class="s-text">of marketing spend can replicate the word-of-mouth value of a single unforgettable guest moment</p></div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- DISCIPLINES -->
+<section id="disciplines" class="s">
+  <div class="disc-hd"><h2 class="sh">Disciplines</h2><span>Seven domains</span></div>
+  <div class="di">
+    <span class="di-n">01</span>
+    <div>
+      <div class="di-name">F&amp;B Concept &amp; Programming</div>
+      <div class="di-desc">From restaurant positioning and menu philosophy to beverage curation and supplier sourcing. We design food and drink experiences that feel inevitable — as if the venue could never have served anything else.</div>
+    </div>
+    <div class="di-price"><b>€6–12k</b><s>per project</s></div>
+  </div>
+  <div class="di">
+    <span class="di-n">02</span>
+    <div>
+      <div class="di-name">Health &amp; Wellness Programming</div>
+      <div class="di-desc">A coherent wellness philosophy woven into every touchpoint. Ritual design, product curation, preventive health programming, and the sensory architecture of recovery and renewal. Not a spa menu — a belief system.</div>
+    </div>
+    <div class="di-price"><b>€8–15k</b><s>per project</s></div>
+  </div>
+  <div class="di">
+    <span class="di-n">03</span>
+    <div>
+      <div class="di-name">Service Culture &amp; Soft Product</div>
+      <div class="di-desc">The invisible luxury. How your team speaks, listens, moves. What they place on a table or a pillow. The unwritten standards that make guests feel genuinely cared for — not processed.</div>
+    </div>
+    <div class="di-price"><b>€7–13k</b><s>per project</s></div>
+  </div>
+  <div class="di">
+    <span class="di-n">04</span>
+    <div>
+      <div class="di-name">Suite &amp; Arrival Experience</div>
+      <div class="di-desc">Sensory layering across scent, texture, light and sound. Arrival rituals. Departure gestures. Everything that makes a room or a dining room feel like it was waiting specifically for them.</div>
+    </div>
+    <div class="di-price"><b>€6–12k</b><s>per project</s></div>
+  </div>
+  <div class="di">
+    <span class="di-n">05</span>
+    <div>
+      <div class="di-name">Brand Partnerships &amp; Curation</div>
+      <div class="di-desc">Through Nouri's distribution network across Europe and Asia, we connect hotels and restaurants with premium wellness, F&amp;B, and lifestyle brands that create genuine differentiation. Access most venues cannot reach alone.</div>
+    </div>
+    <div class="di-price"><b>Bespoke</b><s>on enquiry</s></div>
+  </div>
+  <div class="di">
+    <span class="di-n">06</span>
+    <div>
+      <div class="di-name">Experience Review</div>
+      <div class="di-desc">We visit. We dine. We stay. Anywhere in Asia-Pacific or Europe. We experience everything as your guest would — wellness, service, F&amp;B, soft product. Within two weeks, a precise prioritised audit of every touchpoint. Most clients start here.</div>
+    </div>
+    <div class="di-price"><b>€3,500</b><s>flat fee</s></div>
+  </div>
+  <div class="di">
+    <span class="di-n">07</span>
+    <div>
+      <div class="di-name">Exclusive Marketing Service</div>
+      <div class="di-desc">We shape how your property is seen and discovered in the digital age — the story it tells, the press it earns, the copy on its website, and how it speaks to guests at every touchpoint. Combine it with other Nouri Studio services or use it as a standalone service.</div>
+    </div>
+    <div class="di-price"><b>From €2,500</b><s>per month</s></div>
+  </div>
+  <div class="retainer">
+    <p><strong>Retainer —</strong> Ongoing seasonal refreshes, wellness programme evolution, menu updates, soft product curation, and new brand introductions. Available to existing project clients only.</p>
+    <div class="retainer-p">From €2,500 / month</div>
+  </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section id="manifesto">
+  <div class="m-t" style="color:#F4EFE7">Most hotels and restaurants decorate spaces. We design <span style="color:#A8783A;font-style:italic">moments</span> — the ones that arrive before the guest expects them, and stay long after they leave.</div>
+
+</section>
+
+<div class="rule"></div>
+
+<!-- PROCESS -->
+<section id="process" class="s">
+  <div>
+    <div class="ey">How we work</div>
+    <h2 class="sh" style="max-width:260px;margin-top:8px">Four steps.<br>One standard.</h2>
+  </div>
+  <div>
+    <div class="pr-step">
+      <div class="pr-n">01</div>
+      <div><div class="pr-name">Discovery</div><p class="pr-desc">We visit your property or restaurant. We experience it as your guests do. We read what they write when they leave. We find what they feel but cannot yet say.</p></div>
+    </div>
+    <div class="pr-step">
+      <div class="pr-n">02</div>
+      <div><div class="pr-name">Concept</div><p class="pr-desc">A single, clear experience philosophy. Not a list of tactics — a point of view that makes every subsequent decision obvious. This is the hardest part. We do it well.</p></div>
+    </div>
+    <div class="pr-step">
+      <div class="pr-n">03</div>
+      <div><div class="pr-name">Design</div><p class="pr-desc">Every touchpoint designed to express the philosophy. F&B, wellness, service, soft product, arrivals, departures. Precise. Documented. Deliverable to your operations team.</p></div>
+    </div>
+    <div class="pr-step">
+      <div class="pr-n">04</div>
+      <div><div class="pr-name">Handover</div><p class="pr-desc">Your team receives everything they need to bring it to life — and keep it alive. We remain available for implementation questions for 60 days at no additional cost.</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="ey">Begin</div>
+  <h2 class="c-h">Every great<br>guest experience<br><em>starts here.</em></h2>
+  <p class="c-sub">A 20-minute conversation. No agenda — just a look at what is possible for your property, wherever it is.</p>
+  <div class="c-acts">
+    <a href="mailto:julian@muckenhammer.com" class="btn btn-fill">julian@muckenhammer.com</a>
+    <a href="mailto:julian@muckenhammer.com" class="c-link">Book a discovery call</a>
+  </div>
+</section>
+
+<footer>
+  <div class="f-logo">Nouri <i>Studio</i></div>
+  <div class="f-note">nouri.studio</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* CURSOR */
+const co=document.getElementById("cur-outer"),ci=document.getElementById("cur-inner");
+let mx=window.innerWidth/2,my=window.innerHeight/2,ox=mx,oy=my,ix=mx,iy=my;
+document.addEventListener("mousemove",e=>{mx=e.clientX;my=e.clientY});
+document.querySelectorAll("a,button").forEach(el=>{
+  el.addEventListener("mouseenter",()=>{co.classList.add("big");ci.classList.add("big")});
+  el.addEventListener("mouseleave",()=>{co.classList.remove("big");ci.classList.remove("big")});
+});
+(function tick(){
+  ox+=(mx-ox)*.08; oy+=(my-oy)*.08;
+  ix+=(mx-ix)*.22; iy+=(my-iy)*.22;
+  co.style.left=ox+"px"; co.style.top=oy+"px";
+  ci.style.left=ix+"px"; ci.style.top=iy+"px";
+  requestAnimationFrame(tick);
+})();
+
+/* NAV scroll */
+window.addEventListener("scroll",()=>document.getElementById("nav").classList.toggle("scrolled",scrollY>40));
+
+/* NAV link smooth scroll — guaranteed fallback */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener("click",function(e){
+    const id=this.getAttribute("href");
+    if(id==="#")return;
+    const target=document.querySelector(id);
+    if(target){e.preventDefault();target.scrollIntoView({behavior:"smooth",block:"start"});}
+  });
+});
+
+/* MANIFESTO */
+const quote="Most hotels and restaurants decorate spaces. We design moments — the ones that arrive before the guest expects them, and stay long after they leave.";
+const gw=new Set(["moments","arrive","stay"]);
+const mw=document.getElementById("mw");
+quote.split(" ").forEach(w=>{const s=document.createElement("span");s.className="w"+(gw.has(w.replace(/[^a-zA-Z]/g,""))?" g":"");s.textContent=w+" ";mw.appendChild(s)});
+const mio=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const ws=mw.querySelectorAll(".w");ws.forEach((w,i)=>setTimeout(()=>w.classList.add("on"),i*52));mio.unobserve(x.target)})},{threshold:0.2});
+mio.observe(document.getElementById("manifesto"));
+
+/* COPY EMAIL */
+function copyEmail(btn){
+  navigator.clipboard.writeText(`Dear [Name],\n\nI came across [Hotel / Restaurant Name] while researching properties in [region] and was genuinely struc
